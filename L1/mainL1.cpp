@@ -128,19 +128,29 @@ public:
 	PhoneBook(ifstream &file) {
 
 		if (!file.is_open())
+		{
 			cout << "file not open" << endl;
+			return;
+		}
 
-		Person person;
-		PhoneNumber phoneNumber;
-		string surName;
-		int addNum;
 
-		while (file) {
+		while (!file.eof()) {
 
-			file >> person.m_strFamily >> person.m_strName >> surName;
+			Person person;
+			PhoneNumber phoneNumber;
+			string surName;
+			int addNum = 0;
+
+			file >> person.m_strFamily
+				>> person.m_strName
+				>> surName
+				>> phoneNumber.m_wCountry
+				>> phoneNumber.m_wCity
+				>> phoneNumber.m_strNumber
+				>> addNum;
+
 			if (surName != "-")
 				person.m_strSurname = surName;
-			file >> phoneNumber.m_wCountry >> phoneNumber.m_wCity >> phoneNumber.m_strNumber >> addNum;
 			if (addNum != '-')
 				phoneNumber.m_wAddNumber = addNum;
 
@@ -253,7 +263,7 @@ private:
 
 int main() {
 
-	ifstream file("XXX.txt"); // путь к файлу PhoneBook.txt
+	ifstream file("F:\\PROJECTS\\GeekBrains\\Hard moments Cpp\\Home works\\Lesson1\\XXX.txt"); // путь к файлу PhoneBook.txt
 	PhoneBook book(file);
 	cout << book;
 
